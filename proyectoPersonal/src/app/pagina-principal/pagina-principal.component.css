@@ -1,0 +1,248 @@
+/* Contenedor principal del libro */
+.pagina-principal {
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e8f0ff;
+}
+
+/* Cabecera */
+.libro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: blue;
+  color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Menú de navegación */
+.menu-opciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.menu-opciones button {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  color: blue;
+  border: none;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.menu-opciones button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Barra de búsqueda */
+.book-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+.search-input {
+  padding: 0.5rem;
+  flex: 1;
+  border: none;
+  border-radius: 0.3rem;
+  outline: none;
+}
+
+/* Botón de logout */
+.logout-button {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  color: blue;
+  border: none;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  font-size: 1rem; /* Aseguramos mismo tamaño */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #e0e0e0; /* Mismo hover para ambos */
+  color: blue;
+}
+
+/* Contenido principal de los libros */
+.pagina-libro {
+  padding: 2rem 1rem;
+  background-color: white;
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid de libros - Máximo 3 por fila */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Responsive: 2 columnas en tablets */
+@media (max-width: 900px) {
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive: 1 columna en móviles */
+@media (max-width: 600px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjeta del libro */
+.book-card {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.book-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Información del libro */
+.book-info h2 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.book-info p {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Etiqueta de género */
+.genre-badge {
+  display: inline-block;
+  background-color: #e0ecff;
+  color: #0056b3;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+/* Estilos para favoritos */
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #ccc;
+  transition: all 0.3s;
+  z-index: 2;
+}
+
+.favorite-button:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.favorite-indicator {
+  position: absolute;
+  font-size: 14px;
+}
+
+.favorite-indicator.active {
+  color: red;
+  filter: drop-shadow(0 0 2px rgba(255, 0, 0, 0.7));
+}
+
+.book-card {
+  position: relative; /* Necesario para el posicionamiento absoluto del botón */
+  /* ... (mantén tus otros estilos) ... */
+}
+
+/* Contador de favoritos en el botón */
+.menu-opciones button:nth-child(3)::after {
+  content: " (" attr(data-count) ")";
+  font-size: 0.8em;
+}
+
+/* Contenedor del dropdown (posición relativa para el menú absoluto) */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Botón principal del dropdown */
+.dropdown-btn {
+  padding: 0.5rem 1rem;
+  background: white;
+  color: blue;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Flecha del botón */
+.arrow {
+  font-size: 0.7rem;
+}
+
+/* Menú desplegable */
+.dropdown-menu {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  background: blue;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+  width: 200px;
+}
+
+/* Items del menú */
+.dropdown-menu li {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: grey;
+}

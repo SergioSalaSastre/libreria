@@ -1,0 +1,58 @@
+<section class="pagina-principal">
+  <div class="libro-abierto">
+    <!-- Cabecera superior -->
+    <header class="libro-header">
+      <nav class="menu-opciones">
+        <button (click)="showOnlyFavorites = false">Inicio</button>
+        <!-- Contenedor del dropdown -->
+        <div class="dropdown">
+          <button class="dropdown-btn" (click)="toggleDropdown()">
+            Géneros
+            <span class="arrow">▼</span>
+          </button>
+          @if (isDropdownOpen) {
+          <ul class="dropdown-menu">
+            @for (genre of uniqueGenres; track genre) {
+            <li (click)="filterByGenre(genre)">
+              {{ genre }}
+            </li>
+            }
+            <li (click)="clearGenreFilter()">Todos los géneros</li>
+          </ul>
+          }
+        </div>
+        <button (click)="showOnlyFavorites = true">Favoritos ({{favoriteBooks.length}})</button>
+      </nav>
+
+      <div class="book-search-bar">
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por título o autor..." class="search-input" />
+        <button (click)="clearSearch()" *ngIf="searchTerm">✕</button>
+      </div>
+      <button class="logout-button" (click)="logout()">Logout</button>
+    </header>
+
+    <!-- Contenido principal ( página del libro) -->
+    <div class="pagina-libro book-finder">
+      <h1>{{ showOnlyFavorites ? 'Mis Favoritos' : 'Explorar Libros' }}</h1>
+      @if ((showOnlyFavorites ? favoriteBooks : filteredBooks).length > 0) {
+      <div class="book-grid">
+        @for (book of (showOnlyFavorites ? favoriteBooks : filteredBooks); track book.title) {
+        <article class="book-card">
+          <button class="favorite-button" (click)="toggleFavorite(book); $event.stopPropagation()">
+            ♥ <span class="favorite-indicator" [class.active]="isFavorite(book)"></span>
+          </button>
+          <img [src]="book.cover" [alt]="'Portada de ' + book.title" (error)="handleImageError($event)" />
+          <div class="book-info">
+            <h2>{{ book.title }}</h2>
+            <p>{{ book.author }} ({{ book.publicationYear }})</p>
+            <span class="genre-badge">{{ book.literaryGenre }}</span>
+          </div>
+        </article>
+        }
+      </div>
+      } @else {
+      <p>{{ showOnlyFavorites ? 'No tienes libros favoritos' : 'No hay libros disponibles' }}</p>
+      }
+    </div>
+  </div>
+</section>
