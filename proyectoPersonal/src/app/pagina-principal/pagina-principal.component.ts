@@ -3,104 +3,36 @@ import { Book } from '../Models/Book';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { ServiceService } from '../Service/service.service';
 
 @Component({
   selector: 'app-pagina-principal',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, HttpClientModule],
   templateUrl: './pagina-principal.component.html',
   styleUrl: './pagina-principal.component.css',
 })
 export class PaginaPrincipalComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private service: ServiceService) {}
   searchTerm: string = '';
   favoriteBooks: any[] = [];
   showOnlyFavorites: boolean = false;
   isDropdownOpen: boolean = false;
   selectedGenre: string | null = null;
 
-  books: Book[] = [
-    {
-      title: 'Cien años de soledad',
-      author: 'Gabriel García Márquez',
-      publicationYear: 1967,
-      literaryGenre: 'Realismo mágico',
-      cover: 'https://covers.openlibrary.org/b/isbn/9788497594255-L.jpg',
-      description: 'Una novela emblemática de la literatura latinoamericana.',
-    },
-    {
-      title: '1984',
-      author: 'George Orwell',
-      publicationYear: 1949,
-      literaryGenre: 'Distopía',
-      cover: 'https://covers.openlibrary.org/b/id/153541-L.jpg',
-      description:
-        'Una obra maestra sobre el control social y la vigilancia en una sociedad totalitaria.',
-    },
-    {
-      title: 'Brave New World',
-      author: 'Aldous Huxley',
-      publicationYear: 1932,
-      literaryGenre: 'Ciencia ficción distópica',
-      cover: 'https://covers.openlibrary.org/b/id/8225261-L.jpg',
-      description:
-        'Una sociedad futurista donde la eficiencia y el control social eliminan la individualidad y la emoción humana.',
-    },
-    {
-      title: "Ender's Game",
-      author: 'Orson Scott Card',
-      publicationYear: 1985,
-      literaryGenre: 'Ciencia ficción militar',
-      cover: 'https://covers.openlibrary.org/b/id/240726-L.jpg',
-      description:
-        'La humanidad entrena niños prodigio para liderar la defensa contra una amenaza alienígena.',
-    },
-    {
-      title: 'Mendigos en España',
-      author: 'Nancy Kress',
-      publicationYear: 1991,
-      literaryGenre: 'Ciencia ficción',
-      cover: 'https://covers.openlibrary.org/b/id/8231996-L.jpg',
-      description:
-        'En un futuro donde la ingeniería genética permite crear humanos que no necesitan dormir, surgen tensiones sociales y éticas.',
-    },
-    {
-      title: 'La República',
-      author: 'Platón',
-      publicationYear: -380,
-      literaryGenre: 'Filosofía',
-      cover: 'https://covers.openlibrary.org/b/id/8231851-L.jpg',
-      description:
-        'El diálogo filosófico más influyente de Platón sobre la justicia, la política y la ciudad ideal.',
-    },
-    {
-      title: 'Metafísica',
-      author: 'Aristóteles',
-      publicationYear: -350,
-      literaryGenre: 'Filosofía',
-      cover: 'https://covers.openlibrary.org/b/id/8231830-L.jpg',
-      description:
-        'Obra fundamental donde Aristóteles explora la naturaleza de la realidad, el ser y el conocimiento.',
-    },
-    {
-      title: 'Don Quijote de la Mancha',
-      author: 'Miguel de Cervantes',
-      publicationYear: 1605,
-      literaryGenre: 'Novela',
-      cover: 'https://covers.openlibrary.org/b/id/10521689-L.jpg',
-      description:
-        'Las aventuras del caballero Don Quijote y su fiel escudero Sancho Panza, una sátira de las novelas de caballería.',
-    },
-    {
-      title: 'No te comas el coco',
-      author: 'Julia Pascual',
-      publicationYear: 2021,
-      literaryGenre: 'Desarrollo personal',
-      cover: 'https://covers.openlibrary.org/b/id/12853938-L.jpg',
-      description:
-        'Un libro de autoayuda que ofrece herramientas prácticas para gestionar la ansiedad y los pensamientos negativos.',
-    },
-  ];
+
+  books: Book[] =[];
+
+
+  // Opcional: Cargar favoritos al iniciar
+  ngOnInit() {
+
+    this.service.getBooks().subscribe(data => this.books = data);
+    const saved = localStorage.getItem('favoriteBooks');
+    if (saved) this.favoriteBooks = JSON.parse(saved);
+  }
 
   get filteredBooks(): Book[] {
   let result = this.books;
@@ -153,11 +85,7 @@ export class PaginaPrincipalComponent {
     return this.favoriteBooks.some((fav) => fav.title === book.title);
   }
 
-  // Opcional: Cargar favoritos al iniciar
-  ngOnInit() {
-    const saved = localStorage.getItem('favoriteBooks');
-    if (saved) this.favoriteBooks = JSON.parse(saved);
-  }
+
 
   // Función para alternar (abrir/cerrar) el dropdown
 toggleDropdown() {
