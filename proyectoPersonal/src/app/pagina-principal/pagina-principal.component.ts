@@ -35,18 +35,22 @@ export class PaginaPrincipalComponent {
   }
 
   get filteredBooks(): Book[] {
-  let result = this.books;
+  const source = this.showOnlyFavorites ? this.favoriteBooks : this.books;
+
+  let result = source;
 
   if (this.selectedGenre) {
-    result = result.filter(book => book.literaryGenre === this.selectedGenre);
+    result = result.filter(book =>
+      book.literaryGenre?.toLowerCase() === this.selectedGenre?.toLowerCase()
+    );
   }
 
   if (this.searchTerm) {
     const term = this.searchTerm.toLowerCase();
-    result = result.filter(
-      (book) =>
-        (book.title && book.title.toLowerCase().includes(term)) ||
-        (book.author && book.author.toLowerCase().includes(term))
+    result = result.filter(book =>
+      (book.title && book.title.toLowerCase().includes(term)) ||
+      (book.author && book.author.toLowerCase().includes(term)) ||
+      (book.literaryGenre && book.literaryGenre.toLowerCase().includes(term))
     );
   }
 

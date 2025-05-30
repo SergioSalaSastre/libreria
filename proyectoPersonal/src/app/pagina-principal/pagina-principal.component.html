@@ -36,7 +36,7 @@
       <h1>{{ showOnlyFavorites ? 'Mis Favoritos' : 'Explorar Libros' }}</h1>
       @if ((showOnlyFavorites ? favoriteBooks : filteredBooks).length > 0) {
       <div class="book-grid">
-        @for (book of (showOnlyFavorites ? favoriteBooks : filteredBooks); track book.title) {
+        @for (book of filteredBooks; track book.title) {
         <article class="book-card">
           <button class="favorite-button" (click)="toggleFavorite(book); $event.stopPropagation()">
             ♥ <span class="favorite-indicator" [class.active]="isFavorite(book)"></span>
