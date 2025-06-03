@@ -8,6 +8,7 @@ export class AuthService {
   constructor(private http: HttpClient){}
 
   url = 'http://localhost:8080/user';
+  
   // Estado reactivo común
   nombre = signal('');
   apellido = signal('');
