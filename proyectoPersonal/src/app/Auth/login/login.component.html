@@ -1,0 +1,56 @@
+<div class="login-container">
+  <h2>Iniciar Sesión</h2>
+  
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        type="email"
+        [ngModel]="authService.email()"
+        (ngModelChange)="authService.email.set($event)"
+        name="email"
+        required
+      >
+      @if (emailError) {
+        <div class="error-message">{{ emailError }}</div>
+      }
+    </div>
+
+    <div class="form-group password-input-container">
+      <label>Contraseña</label>
+      <input
+        [type]="authService.showPassword() ? 'text' : 'password'"
+        [ngModel]="authService.password()"
+        (ngModelChange)="authService.password.set($event)"
+        name="password"
+        required
+      >
+      <span 
+        class="password-toggle"
+        (click)="authService.togglePasswordVisibility()"
+      >
+        {{ authService.showPassword() ? 'Ocultar' : 'Mostrar' }}
+      </span>
+      @if (passwordError) {
+        <div class="error-message">{{ passwordError }}</div>
+      }
+    </div>
+
+    <div class="password-requirements">
+      <p>La contraseña debe contener:</p>
+      <ul>
+        @for (req of authService.passwordStrength().requirements; track req.text) {
+          <li [class.valid]="req.valid">{{ req.text }}</li>
+        }
+      </ul>
+    </div>
+
+    <button type="submit" [disabled]="!authService.isEmailValid() || !authService.passwordStrength().valid">
+      Ingresar
+    </button>
+  </form>
+
+  <div class="register-link">
+    ¿No tienes cuenta? <a routerLink="/registro">Regístrate</a>
+  </div>
+</div>

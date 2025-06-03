@@ -1,0 +1,163 @@
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 2rem;
+  border: 3px solid #1976d2; /* borde azul más grueso */
+  border-radius: 8px;
+  background-color: #fafafa;
+
+  /* sombra para dar profundidad */
+  box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.login-container .form-group {
+  margin-bottom: 1rem;
+}
+
+.login-container .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.login-container .form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-container .password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.login-container .password-container input {
+  flex: 1;
+}
+
+.login-container .password-toggle {
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.1rem;
+  background: none;
+  border: none;
+  color: #1976d2;
+  padding: 0 0.5rem;
+}
+
+.login-container .toggle-password:hover {
+  color: #1565c0;
+}
+
+.login-container .error-message {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+/* Contenedor para los requisitos y enlace de registro, alineados horizontalmente */
+.login-container .password-requirements-and-register {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Lista de requisitos */
+.login-container .password-requirements {
+  font-size: 0.8rem;
+  color: #666;
+  flex: 1;
+}
+
+.login-container .password-requirements p {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.login-container .password-requirements ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.login-container .password-requirements li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.login-container .password-requirements li::before {
+  content: "✗";
+  position: absolute;
+  left: 0;
+  color: #d32f2f;
+}
+
+.login-container .password-requirements li.valid::before {
+  content: "✓";
+  color: #388e3c;
+}
+
+/* Enlace para registro */
+.login-container .register-link {
+  font-size: 0.85rem;
+  color: #1976d2;
+  text-decoration: underline;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}
+
+.login-container .register-link:hover {
+  color: #1565c0;
+}
+
+.login-container button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.login-container button[type="submit"]:hover {
+  background-color: #1565c0;
+}
+
+.login-container button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+
+  a {
+    color: #1976d2;
+    text-decoration: underline;
+
+    &:hover {
+      color: #1565c0;
+    }
+  }
+}

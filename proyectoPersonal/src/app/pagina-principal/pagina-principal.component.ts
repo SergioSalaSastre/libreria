@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ServiceService } from '../Service/service.service';
+import { ServiceService } from '../Service/bookService.service';
 
 @Component({
   selector: 'app-pagina-principal',
