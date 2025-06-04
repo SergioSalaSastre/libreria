@@ -4,6 +4,7 @@
     <header class="libro-header">
       <nav class="menu-opciones">
         <button (click)="showOnlyFavorites = false">Inicio</button>
+        
         <!-- Contenedor del dropdown -->
         <div class="dropdown">
           <button class="dropdown-btn" (click)="toggleDropdown()">
@@ -21,6 +22,7 @@
           </ul>
           }
         </div>
+        
         <button (click)="showOnlyFavorites = true">Favoritos ({{favoriteBooks.length}})</button>
       </nav>
 
@@ -28,20 +30,32 @@
         <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por título, autor o género" class="search-input" />
         <button (click)="clearSearch()" *ngIf="searchTerm">✕</button>
       </div>
+      
       <button class="logout-button" (click)="logout()">Logout</button>
     </header>
 
-    <!-- Contenido principal ( página del libro) -->
+    <!-- Contenido principal (página del libro) -->
     <div class="pagina-libro book-finder">
       <h1>{{ showOnlyFavorites ? 'Mis Favoritos' : 'Explorar Libros' }}</h1>
+      
       @if ((showOnlyFavorites ? favoriteBooks : filteredBooks).length > 0) {
       <div class="book-grid">
-        @for (book of filteredBooks; track book.title) {
+        @for (book of (showOnlyFavorites ? favoriteBooks : filteredBooks); track book.title) {
         <article class="book-card">
           <button class="favorite-button" (click)="toggleFavorite(book); $event.stopPropagation()">
             ♥ <span class="favorite-indicator" [class.active]="isFavorite(book)"></span>
           </button>
-          <img [src]="book.cover" [alt]="'Portada de ' + book.title" (error)="handleImageError($event)" />
+          
+          <!-- Contenedor añadido para mejor control de la imagen -->
+          <div class="image-container">
+            <img 
+              [src]="book.cover" 
+              [alt]="'Portada de ' + book.title" 
+              (error)="handleImageError($event)" 
+              [title]="book.title"
+            />
+          </div>
+          
           <div class="book-info">
             <h2>{{ book.title }}</h2>
             <p>{{ book.author }} ({{ book.publicationYear }})</p>
@@ -51,7 +65,7 @@
         }
       </div>
       } @else {
-      <p>{{ showOnlyFavorites ? 'No tienes libros favoritos' : 'No hay libros disponibles' }}</p>
+      <p class="no-books-message">{{ showOnlyFavorites ? 'No tienes libros favoritos' : 'No hay libros disponibles' }}</p>
       }
     </div>
   </div>
